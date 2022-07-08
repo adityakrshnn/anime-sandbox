@@ -17,8 +17,9 @@ const InputManager: FC<InputManagerProps> = ({ properties, setProperty }) => (
     {Object.keys(properties).map((property) => {
       return (
         <PropertyInput
+          key={property}
           propertyName={property}
-          propertyValue={properties[property]}
+          propertyValues={properties[property]}
           setProperty={setProperty}
         ></PropertyInput>
       );

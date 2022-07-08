@@ -1,11 +1,18 @@
-import { ChakraProvider, Box, Grid, theme, GridItem } from "@chakra-ui/react";
+import { ChakraProvider, Box, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import Canvas from "./components/Canvas/Canvas";
 import InputManager from "./components/InputManager/InputManager";
+import PlaybackControls from "./components/PlaybackControls/PlaybackControls";
+import { Properties } from "./models/animations.model";
+import { TimelineService } from "./services/timeline.service";
+import extendedTheme from "./theme";
 
 export const App = () => {
-  const [properties, setProperties] = useState<any>({ left: [0, 100], top: [0, 1000] });
+  const [properties, setProperties] = useState<Properties>({
+    left: [0, 100],
+    top: [0, 100],
+  });
+  const timelineService: TimelineService = new TimelineService(properties);
 
   const setProperty = (property: string, value: any) => {
     const newProperties = {
@@ -16,14 +23,12 @@ export const App = () => {
   };
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={extendedTheme}>
       <Box textAlign="center" fontSize="xl">
         <Grid
           templateRows="repeat(10, 1fr)"
           templateColumns="repeat(10, 1fr)"
-          gap={4}
           height="100vh"
-          p={3}
         >
           {/* <GridItem
           rowSpan={1}
@@ -40,20 +45,23 @@ export const App = () => {
           <GridItem
             id="canvas-wrapper"
             rowSpan={10}
-            colSpan={6}
-            bg="papayawhip"
+            colSpan={8}
+            bg="rgb(232, 155, 202)"
           >
-            <Canvas></Canvas>
+            <Canvas timelineService={timelineService}></Canvas>
           </GridItem>
 
-          <GridItem rowSpan={10} colSpan={2} bg="blue">
+          <GridItem rowSpan={10} colSpan={2} bg="rgb(206, 120, 173)">
+            <Box position={"absolute"} transform="translateX(-30px)">
+              <PlaybackControls
+                timelineService={timelineService}
+              ></PlaybackControls>
+            </Box>
             <InputManager
               properties={properties}
               setProperty={setProperty}
             ></InputManager>
           </GridItem>
-
-          <GridItem rowSpan={10} colSpan={2} bg="blue" />
         </Grid>
       </Box>
     </ChakraProvider>
