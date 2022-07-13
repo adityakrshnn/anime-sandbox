@@ -4,7 +4,7 @@ export class AnimationService {
   static getAnimationConfig = (
     target: fabric.Object,
     properties: Properties,
-    fabricCanvas: fabric.Canvas
+    fabricCanvas: fabric.StaticCanvas
   ) => {
     const config: AnimationConfig = {
       option: {

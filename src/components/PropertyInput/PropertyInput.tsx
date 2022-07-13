@@ -22,11 +22,25 @@ const PropertyInput: FC<PropertyInputProps> = ({
   propertyValues,
   setProperty,
 }) => {
+  const handleChange = (
+    event: React.FocusEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    if (event.target.value === "") {
+      return;
+    }
+
+    const newPropertyValues = [...propertyValues];
+    newPropertyValues[index] = Number(event.target.value);
+    setProperty(propertyName, newPropertyValues);
+  };
+
   return (
     <Box>
       <Text fontSize={"md"} textTransform="uppercase">
         {propertyName}
       </Text>
+
       <Box display="flex" alignContent="center" justifyContent={"center"}>
         {propertyValues.map((propertyValue, index) => (
           <NumberInput
@@ -35,6 +49,7 @@ const PropertyInput: FC<PropertyInputProps> = ({
             ml={2}
             mr={2}
             key={index}
+            onBlur={(e) => handleChange(e, index)}
           >
             <NumberInputField />
             <NumberInputStepper>

@@ -46,7 +46,7 @@ export class TimelineService {
     return this.timeline.currentTime;
   };
 
-  refreshTimeline = (fabricCanvas: fabric.Canvas, target: fabric.Object) => {
+  refreshTimeline = (fabricCanvas: fabric.StaticCanvas, target: fabric.Object) => {
     const config = AnimationService.getAnimationConfig(
       target,
       this.properties,

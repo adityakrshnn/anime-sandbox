@@ -14,7 +14,7 @@ const PlaybackControls: FC<PlaybackControlsProps> = ({ timelineService }) => {
 
   return (
     <Box onClick={play}>
-      <Play />
+      <Play cursor={"pointer"}/>
     </Box>
   );
 };
